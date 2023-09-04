@@ -3,7 +3,7 @@ module github.com/nscuro/dtapac
 go 1.20
 
 require (
-	github.com/DependencyTrack/client-go v0.8.0
+	github.com/DependencyTrack/client-go v0.8.1-0.20230206124230-e451b5e186af
 	github.com/go-chi/chi/v5 v5.0.8
 	github.com/google/uuid v1.3.0
 	github.com/iancoleman/orderedmap v0.2.0
