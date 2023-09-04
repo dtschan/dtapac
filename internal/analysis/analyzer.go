@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/DependencyTrack/client-go"
+	dtrack "github.com/DependencyTrack/client-go"
 	"github.com/rs/zerolog"
 
 	"github.com/nscuro/dtapac/internal/audit"
@@ -97,10 +97,14 @@ func (pa PortfolioAnalyzer) analyzeFindings(ctx context.Context, project dtrack.
 	}
 
 	for i := range findings {
+		vulnerability, err := pa.dtClient.Vulnerability.Get(ctx, findings[i].Vulnerability.UUID)
+		if err != nil {
+			return fmt.Errorf("failed to fetch component: %w", err)
+		}
 		finding := audit.Finding{
 			Component:     findings[i].Component,
 			Project:       project,
-			Vulnerability: findings[i].Vulnerability,
+			Vulnerability: vulnerability,
 		}
 
 		analysisReq, auditErr := pa.auditor.AuditFinding(context.Background(), finding)
